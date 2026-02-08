@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rainfall Prediction and Early Warning System</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Rainfall Prediction and Early Warning System</h1>
+
+    <div>
+        <h3>Enter Weather Data</h3>
+        <form id="dataForm">
+            <label for="datetime">Date and Time:</label>
+            <input type="datetime-local" id="datetime" name="datetime"><br><br>
+
+            <label for="p">Pressure (p):</label>
+            <input type="number" id="p" name="p" step="0.01"><br><br>
+
+            <label for="T">Temperature (T):</label>
+            <input type="number" id="T" name="T" step="0.01"><br><br>
+
+            <label for="Tpot">Potential Temperature (Tpot):</label>
+            <input type="number" id="Tpot" name="Tpot" step="0.01"><br><br>
+
+            <label for="Tdew">Dew Point (Tdew):</label>
+            <input type="number" id="Tdew" name="Tdew" step="0.01"><br><br>
+
+            <label for="rh">Relative Humidity (rh):</label>
+            <input type="number" id="rh" name="rh" step="0.01"><br><br>
+
+            <label for="VPmax">VPmax:</label>
+            <input type="number" id="VPmax" name="VPmax" step="0.01"><br><br>
+
+            <label for="VPact">VPact:</label>
+            <input type="number" id="VPact" name="VPact" step="0.01"><br><br>
+
+            <label for="VPdef">VPdef:</label>
+            <input type="number" id="VPdef" name="VPdef" step="0.01"><br><br>
+
+            <label for="sh">Specific Humidity (sh):</label>
+            <input type="number" id="sh" name="sh" step="0.01"><br><br>
+
+            <label for="H2OC">H2O Concentration:</label>
+            <input type="number" id="H2OC" name="H2OC" step="0.01"><br><br>
+
+            <label for="rho">Air Density (rho):</label>
+            <input type="number" id="rho" name="rho" step="0.01"><br><br>
+
+            <label for="wv">Wind Velocity (wv):</label>
+            <input type="number" id="wv" name="wv" step="0.01"><br><br>
+
+            <label for="max_wv">Max Wind Velocity (max. wv):</label>
+            <input type="number" id="max_wv" name="max_wv" step="0.01"><br><br>
+
+            <label for="wd">Wind Direction (wd):</label>
+            <input type="number" id="wd" name="wd" step="0.01"><br><br>
+
+            <label for="rain">Rain:</label>
+            <input type="number" id="rain" name="rain" step="0.01"><br><br>
+
+            <label for="raining">Raining (0 or 1):</label>
+            <input type="number" id="raining" name="raining" min="0" max="1"><br><br>
+
+            <label for="SWDR">Shortwave Down Radiation (SWDR):</label>
+            <input type="number" id="SWDR" name="SWDR" step="0.01"><br><br>
+
+            <label for="PAR">Photosynthetically Active Radiation (PAR):</label>
+            <input type="number" id="PAR" name="PAR" step="0.01"><br><br>
+
+            <label for="max_PAR">Max PAR:</label>
+            <input type="number" id="max_PAR" name="max_PAR" step="0.01"><br><br>
+
+            <label for="Tlog">Logarithmic Temperature (Tlog):</label>
+            <input type="number" id="Tlog" name="Tlog" step="0.01"><br><br>
+
+            <button type="button" onclick="submitData()">Submit Data</button>
+            <button type="button" onclick="makePrediction()">Predict Rainfall</button>
+        </form>
+    </div>
+
+    <h3 id="predictionResult"></h3>
+    <canvas id="rainfallChart" width="400" height="200"></canvas>
+
+	<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>

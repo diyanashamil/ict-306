@@ -1,0 +1,8 @@
+diyvenv/
+venv/
+*.pyc
+__pycache__/
+data/
+*.csv
+*.keras
+.DS_Store

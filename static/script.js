@@ -1,25 +1,38 @@
 function submitData() {
+    // Validate required fields
+    const requiredFields = ['p', 'T', 'Tpot', 'Tdew', 'rh', 'VPmax', 'VPact', 'VPdef', 'sh', 
+                           'H2OC', 'rho', 'wv', 'max_wv', 'wd', 'rain', 'SWDR', 'PAR', 'max_PAR', 'Tlog'];
+    
+    for (let field of requiredFields) {
+        const value = document.getElementById(field).value;
+        if (value === '' || isNaN(parseFloat(value))) {
+            alert(`❌ Please enter a valid number for ${field.toUpperCase()}`);
+            document.getElementById(field).focus();
+            return;
+        }
+    }
+
     const data = {
         datetime: document.getElementById("datetime").value,
-        p: parseFloat(document.getElementById("p").value) || 0,
-        T: parseFloat(document.getElementById("T").value) || 0,
-        Tpot: parseFloat(document.getElementById("Tpot").value) || 0,
-        Tdew: parseFloat(document.getElementById("Tdew").value) || 0,
-        rh: parseFloat(document.getElementById("rh").value) || 0,
-        VPmax: parseFloat(document.getElementById("VPmax").value) || 0,
-        VPact: parseFloat(document.getElementById("VPact").value) || 0,
-        VPdef: parseFloat(document.getElementById("VPdef").value) || 0,
-        sh: parseFloat(document.getElementById("sh").value) || 0,
-        H2OC: parseFloat(document.getElementById("H2OC").value) || 0,
-        rho: parseFloat(document.getElementById("rho").value) || 0,
-        wv: parseFloat(document.getElementById("wv").value) || 0,
-        max_wv: parseFloat(document.getElementById("max_wv").value) || 0,
-        wd: parseFloat(document.getElementById("wd").value) || 0,
-        rain: parseFloat(document.getElementById("rain").value) || 0,
-        SWDR: parseFloat(document.getElementById("SWDR").value) || 0,
-        PAR: parseFloat(document.getElementById("PAR").value) || 0,
-        max_PAR: parseFloat(document.getElementById("max_PAR").value) || 0,
-        Tlog: parseFloat(document.getElementById("Tlog").value) || 0
+        p: parseFloat(document.getElementById("p").value),
+        T: parseFloat(document.getElementById("T").value),
+        Tpot: parseFloat(document.getElementById("Tpot").value),
+        Tdew: parseFloat(document.getElementById("Tdew").value),
+        rh: parseFloat(document.getElementById("rh").value),
+        VPmax: parseFloat(document.getElementById("VPmax").value),
+        VPact: parseFloat(document.getElementById("VPact").value),
+        VPdef: parseFloat(document.getElementById("VPdef").value),
+        sh: parseFloat(document.getElementById("sh").value),
+        H2OC: parseFloat(document.getElementById("H2OC").value),
+        rho: parseFloat(document.getElementById("rho").value),
+        wv: parseFloat(document.getElementById("wv").value),
+        max_wv: parseFloat(document.getElementById("max_wv").value),
+        wd: parseFloat(document.getElementById("wd").value),
+        rain: parseFloat(document.getElementById("rain").value),
+        SWDR: parseFloat(document.getElementById("SWDR").value),
+        PAR: parseFloat(document.getElementById("PAR").value),
+        max_PAR: parseFloat(document.getElementById("max_PAR").value),
+        Tlog: parseFloat(document.getElementById("Tlog").value)
     };
 
     const loading = document.getElementById('loading');
@@ -45,26 +58,52 @@ function submitData() {
 }
 
 function makePrediction() {
+    // Validate all required fields
+    const requiredFields = ['p', 'T', 'Tpot', 'Tdew', 'rh', 'VPmax', 'VPact', 'VPdef', 'sh', 
+                           'H2OC', 'rho', 'wv', 'max_wv', 'wd', 'rain', 'SWDR', 'PAR', 'max_PAR', 'Tlog'];
+    
+    for (let field of requiredFields) {
+        const value = document.getElementById(field).value;
+        if (value === '' || isNaN(parseFloat(value))) {
+            alert(`❌ Please enter a valid number for ${field.toUpperCase()}`);
+            document.getElementById(field).focus();
+            return;
+        }
+    }
+
+    // Validate ranges
+    const rh = parseFloat(document.getElementById("rh").value);
+    if (rh < 0 || rh > 100) {
+        alert("❌ Relative Humidity must be between 0 and 100");
+        return;
+    }
+
+    const wd = parseFloat(document.getElementById("wd").value);
+    if (wd < 0 || wd > 360) {
+        alert("❌ Wind Direction must be between 0 and 360 degrees");
+        return;
+    }
+
     const data = {
-        p: parseFloat(document.getElementById("p").value) || 0,
-        T: parseFloat(document.getElementById("T").value) || 0,
-        Tpot: parseFloat(document.getElementById("Tpot").value) || 0,
-        Tdew: parseFloat(document.getElementById("Tdew").value) || 0,
-        rh: parseFloat(document.getElementById("rh").value) || 0,
-        VPmax: parseFloat(document.getElementById("VPmax").value) || 0,
-        VPact: parseFloat(document.getElementById("VPact").value) || 0,
-        VPdef: parseFloat(document.getElementById("VPdef").value) || 0,
-        sh: parseFloat(document.getElementById("sh").value) || 0,
-        H2OC: parseFloat(document.getElementById("H2OC").value) || 0,
-        rho: parseFloat(document.getElementById("rho").value) || 0,
-        wv: parseFloat(document.getElementById("wv").value) || 0,
-        max_wv: parseFloat(document.getElementById("max_wv").value) || 0,
-        wd: parseFloat(document.getElementById("wd").value) || 0,
-        rain: parseFloat(document.getElementById("rain").value) || 0,  // ADDED THIS!
-        SWDR: parseFloat(document.getElementById("SWDR").value) || 0,
-        PAR: parseFloat(document.getElementById("PAR").value) || 0,
-        max_PAR: parseFloat(document.getElementById("max_PAR").value) || 0,
-        Tlog: parseFloat(document.getElementById("Tlog").value) || 0
+        p: parseFloat(document.getElementById("p").value),
+        T: parseFloat(document.getElementById("T").value),
+        Tpot: parseFloat(document.getElementById("Tpot").value),
+        Tdew: parseFloat(document.getElementById("Tdew").value),
+        rh: parseFloat(document.getElementById("rh").value),
+        VPmax: parseFloat(document.getElementById("VPmax").value),
+        VPact: parseFloat(document.getElementById("VPact").value),
+        VPdef: parseFloat(document.getElementById("VPdef").value),
+        sh: parseFloat(document.getElementById("sh").value),
+        H2OC: parseFloat(document.getElementById("H2OC").value),
+        rho: parseFloat(document.getElementById("rho").value),
+        wv: parseFloat(document.getElementById("wv").value),
+        max_wv: parseFloat(document.getElementById("max_wv").value),
+        wd: parseFloat(document.getElementById("wd").value),
+        rain: parseFloat(document.getElementById("rain").value),
+        SWDR: parseFloat(document.getElementById("SWDR").value),
+        PAR: parseFloat(document.getElementById("PAR").value),
+        max_PAR: parseFloat(document.getElementById("max_PAR").value),
+        Tlog: parseFloat(document.getElementById("Tlog").value)
     };
 
     const loading = document.getElementById('loading');
@@ -95,9 +134,13 @@ function makePrediction() {
         if (resultSection) resultSection.style.display = 'block';
         updateChart(result);
 
-        // Show warning if rainfall exceeds threshold
+        // Show warnings based on rainfall levels
         if (result > 50) {
-            alert("⚠️ Warning: High risk of flood or landslide!");
+            alert("🚨 SEVERE WARNING: Very high risk of flooding and landslides!");
+        } else if (result > 25) {
+            alert("⚠️ WARNING: Moderate risk of flooding. Stay alert!");
+        } else if (result > 10) {
+            alert("⚡ CAUTION: Heavy rainfall expected.");
         }
     })
     .catch(error => {

@@ -76,7 +76,8 @@ def predict():
             float(data.get('H2OC', 0)), float(data.get('rho', 0)), float(data.get('wv', 0)),
             float(data.get('max_wv', 0)), float(data.get('wd', 0)), float(data.get('SWDR', 0)),
             float(data.get('PAR', 0)), float(data.get('max_PAR', 0)), float(data.get('Tlog', 0)),
-            float(data.get('rain', 0))
+            float(data.get('rain', 0)),
+            float(data.get('raining', 0))
         ]
         scaled_input = scaler.transform([feature_values])[0]
         sequence_length = 19
